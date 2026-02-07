@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHIMZI | Дизайн</title>
+    
+    <!-- Подключение API Telegram -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Шрифт Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent: #00D26A;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            overscroll-behavior: none;
+        }
+        
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .accent-text { color: var(--accent); }
+        
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(0, 210, 106, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 106, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(0, 210, 106, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 210, 106, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 210, 106, 0); }
+        }
+        .animate-pulse-border {
+            animation: pulse-border 2s infinite;
+        }
+
+        .brand-kaspi { border-color: #f14635; box-shadow: 0 0 15px rgba(241, 70, 53, 0.15); }
+        .brand-wb { border-color: #cb11ab; box-shadow: 0 0 15px rgba(203, 17, 171, 0.15); }
+        .brand-ozon { border-color: #005bff; box-shadow: 0 0 15px rgba(0, 91, 255, 0.15); }
+        .brand-teez { border-color: #00E676; box-shadow: 0 0 15px rgba(0, 230, 118, 0.15); } 
+        
+        .tap-effect:active {
+            transform: scale(0.98);
+            transition: transform 0.1s;
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+
+        /* Стили для скролла отзывов */
+        .reviews-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .reviews-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .review-card {
+            scroll-snap-align: center;
+            flex: 0 0 85%; /* Карточка занимает 85% ширины экрана */
+        }
+    </style>
+</head>
+<body class="antialiased bg-grid pb-12">
+
+    <!-- Навигация -->
+    <nav class="fixed w-full z-40 bg-[#050505]/90 backdrop-blur-md border-b border-gray-800 safe-area-top">
+        <div class="px-5 h-16 flex justify-between items-center max-w-lg mx-auto">
+            <div class="text-xl font-black tracking-widest flex items-center gap-1 tap-effect cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                SHIMZI<span class="accent-text">.</span>KZ
+            </div>
+            
+            <!-- Кнопка с вашим ником -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20дизайн" class="bg-[#229ED9] text-white px-4 py-2.5 rounded-xl font-bold text-[10px] uppercase flex items-center gap-3 shadow-[0_4px_10px_rgba(34,158,217,0.3)] tap-effect">
+                <span>ЗАКАЗАТЬ</span>
+                <div class="h-3 w-px bg-white/30"></div>
+                <div class="flex items-center gap-1.5">
+                    <i class="fab fa-telegram-plane text-sm"></i> Telegram
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section class="min-h-[90vh] flex items-center justify-center text-center px-4 pt-20 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-[#00D26A] opacity-15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-md mx-auto">
+            
+            <div class="mb-8 flex justify-center">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#00D26A] bg-[#00D26A]/10 animate-pulse-border">
+                    <i class="fas fa-check-circle text-[#00D26A] text-sm"></i>
+                    <span class="text-white text-xs font-black uppercase tracking-wider">Выгодные цены & Качество</span>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl font-black mb-4 leading-[1.1] uppercase drop-shadow-2xl">
+                Дизайн для <br> <span class="text-[#00D26A]">Твоих Продаж</span>
+            </h1>
+            
+            <p class="text-sm text-gray-400 mb-10 font-medium leading-relaxed px-2">
+                Упаковка бизнеса под ключ.<br>
+                Сделаю так, чтобы у вас покупали.
+            </p>
+            
+            <!-- Кнопки главного экрана -->
+            <div class="flex flex-col gap-3">
+                <button onclick="openPortfolio()" class="bg-[#00D26A] text-black w-full py-4 rounded-2xl font-black text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(0,210,106,0.3)] tap-effect relative overflow-hidden">
+                    Смотреть Портфолио
+                </button>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="#services" class="border border-gray-700 bg-[#101010]/50 text-white w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider tap-effect hover:border-[#00D26A] transition text-center flex items-center justify-center gap-2">
+                        Все Услуги
+                    </a>
+                    <a href="#reviews" class="border border-gray-700 bg-[#101010]/50 text-white w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider tap-effect hover:border-[#00D26A] transition text-center flex items-center justify-center gap-2">
+                        <i class="fas fa-star text-[#00D26A] text-xs"></i> Отзывы
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Площадки -->
+    <section class="py-6 px-4 max-w-md mx-auto">
+        <h2 class="text-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-4">Работаю с площадками</h2>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="bg-[#101010] border-2 brand-kaspi p-3 rounded-xl flex items-center justify-center tap-effect">
+                <span class="text-white font-black text-base">Kaspi.kz</span>
+            </div>
+            <div class="bg-[#101010] border-2 brand-wb p-3 rounded-xl flex items-center justify-center tap-effect">
+                <span class="text-white font-black text-base">Wildberries</span>
+            </div>
+            <div class="bg-[#101010] border-2 brand-ozon p-3 rounded-xl flex items-center justify-center tap-effect">
+                <span class="text-white font-black text-base">Ozon</span>
+            </div>
+            <div class="bg-[#101010] border-2 brand-teez p-3 rounded-xl flex items-center justify-center tap-effect">
+                <span class="text-white font-black text-base">Teez</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги (С АВТО-СООБЩЕНИЯМИ НА SHIMZIIII) -->
+    <section id="services" class="py-12 px-4 max-w-md mx-auto">
+        <div class="flex flex-col items-center justify-center mb-8">
+            <div class="flex items-center gap-4 mb-3">
+                <div class="h-px bg-gray-800 w-10"></div>
+                <h2 class="text-2xl font-black uppercase text-white">Мои Услуги</h2>
+                <div class="h-px bg-gray-800 w-10"></div>
+            </div>
+            <p class="text-[10px] text-gray-500 text-center font-medium uppercase tracking-wide px-4">
+                👇 Нажмите на нужную услугу — вас перекинет в чат для заказа
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-3">
+            
+            <!-- 1. Инфографика -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Инфографику" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-[#00D26A] hover:shadow-[0_0_15px_rgba(0,210,106,0.15)] active:border-[#00D26A]">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-[#00D26A] shadow-lg border border-[#00D26A]/20">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Инфографика</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Карточки товаров для всех площадок</p>
+                </div>
+            </a>
+
+            <!-- 2. Telegram Mini Apps -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Telegram%20Mini%20App" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-[#229ED9] hover:shadow-[0_0_15px_rgba(34,158,217,0.15)] active:border-[#229ED9]">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-[#229ED9] shadow-lg border border-[#229ED9]/20">
+                    <i class="fas fa-mobile-alt text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Telegram Mini Apps</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Разработка приложений внутри Telegram</p>
+                </div>
+            </a>
+
+            <!-- 3. Сайты -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Landing%20Page" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] active:border-cyan-400">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-cyan-400 shadow-lg border border-cyan-400/20">
+                    <i class="fas fa-laptop-code text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Landing Page</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Одностраничные сайты под ключ</p>
+                </div>
+            </a>
+
+            <!-- 4. Соцсети -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20оформление%20соцсетей" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-blue-500 hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] active:border-blue-500">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-blue-500 shadow-lg border border-blue-500/20">
+                    <i class="fas fa-telegram-plane text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Соцсети (SMM)</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Оформление постов и каналов</p>
+                </div>
+            </a>
+
+            <!-- 5. Логотипы -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Логотип" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-purple-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.15)] active:border-purple-500">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-purple-500 shadow-lg border border-purple-500/20">
+                    <i class="fas fa-paint-brush text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Лого & Бренд</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Разработка логотипа с нуля</p>
+                </div>
+            </a>
+
+            <!-- 6. Документы -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20оформление%20документов" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-gray-400 hover:shadow-[0_0_15px_rgba(156,163,175,0.15)] active:border-gray-400">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-gray-400 shadow-lg border border-gray-400/20">
+                    <i class="fas fa-file-contract text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Документы & КП</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Презентации и PDF файлы</p>
+                </div>
+            </a>
+
+            <!-- 7. Иллюстрации -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Иллюстрацию" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.15)] active:border-pink-500">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-pink-500 shadow-lg border border-pink-500/20">
+                    <i class="fas fa-magic text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Иллюстрации</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Уникальный арт и графика</p>
+                </div>
+            </a>
+
+            <!-- 8. Ретушь -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20Ретушь" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-yellow-500 hover:shadow-[0_0_15px_rgba(234,179,8,0.15)] active:border-yellow-500">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-yellow-500 shadow-lg border border-yellow-500/20">
+                    <i class="fas fa-sliders-h text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Ретушь Фото</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Обработка для каталогов</p>
+                </div>
+            </a>
+
+            <!-- 9. Индивидуально -->
+            <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20У%20меня%20индивидуальный%20заказ" class="block bg-[#101010] p-4 rounded-2xl border border-gray-800 flex items-center gap-4 tap-effect transition duration-300 hover:border-orange-500 hover:shadow-[0_0_15px_rgba(249,115,22,0.15)] active:border-orange-500">
+                <div class="min-w-[50px] h-[50px] rounded-xl bg-[#1a1a1a] flex items-center justify-center text-orange-500 shadow-lg border border-orange-500/20">
+                    <i class="fas fa-drafting-compass text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Индивидуально</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Нестандартные задачи</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ (Якорь) -->
+    <section id="reviews" class="py-8 px-4 max-w-md mx-auto border-t border-gray-800/50">
+        <h2 class="text-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-6">Отзывы клиентов</h2>
+        
+        <!-- Горизонтальный скролл -->
+        <div class="reviews-scroll">
+            
+            <!-- Отзыв 1 -->
+            <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Заказывал карточки для Каспи. Сделали быстро, правки внесли без проблем. Продажи реально пошли вверх после обновления визуала."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">А</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Арман</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отзыв 2 -->
+            <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Нужен был лендинг для агенства недвижимости. Дизайн пушка, всё четко по ТЗ. Особенно понравилось, что адаптировали под мобилку идеально."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">Е</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Елена</p>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Отзыв 3 -->
+             <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Делали оформление для тг канала. Аватарка и шаблоны постов — всё в едином стиле. Выглядит дорого, спасибо!"</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">Р</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Руслан</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отзыв 4 -->
+            <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Инфографика для вайлдберриз просто огонь. CTR вырос до 4.5%, заказы пошли. Будем работать дальше по другим товарам."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">М</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Марина</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отзыв 5 -->
+            <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Сделали логотип для строительной компании. Строго, солидно, как и просил. Скинули в векторе для печати."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">К</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Кайрат</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отзыв 6 -->
+            <div class="review-card bg-[#121212] p-5 rounded-2xl border border-gray-800 relative">
+                <i class="fas fa-quote-right absolute top-4 right-4 text-gray-700 text-xl"></i>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-[#FFC107] text-xs">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 italic mb-4">"Визуал для инстаграма преобразился. Очень стильно и современно. Подписчики сразу заметили разницу."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold">А</div>
+                    <div>
+                        <p class="text-xs font-bold text-white">Алина</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="text-center py-8 text-[10px] text-gray-600 uppercase tracking-widest font-bold">
+        <p class="mb-2">&copy; 2026 SHIMZI DESIGN</p>
+        <p>Almaty, Kazakhstan</p>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПОРТФОЛИО -->
+    <div id="portfolio-modal" class="fixed inset-0 z-[100] hidden modal-overlay overflow-y-auto">
+        <div class="min-h-screen px-0 pb-0 flex flex-col">
+            
+            <!-- Шапка модального окна -->
+            <div class="sticky top-0 z-50 pt-2 pb-2 px-4 bg-gradient-to-b from-black to-transparent">
+                <div class="flex justify-between items-center bg-[#1a1a1a]/95 backdrop-blur-md px-4 py-3 border border-gray-700 rounded-2xl shadow-2xl">
+                    <h2 class="text-lg font-black uppercase text-white">Портфолио</h2>
+                    <button onclick="closePortfolio()" class="w-8 h-8 rounded-full bg-[#333] flex items-center justify-center text-gray-300 tap-effect">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- СЕТКА КАРТИНОК -->
+            <div class="flex-1 px-4 pt-2 pb-32 max-w-md mx-auto w-full space-y-6">
+
+                <!-- 1. РАБОТА -->
+                <div class="rounded-2xl overflow-hidden border border-gray-800 bg-[#0a0a0a] shadow-2xl">
+                    <div class="bg-[#050505] border-b border-gray-800 px-4 py-2.5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00D26A] animate-pulse"></div>
+                            <span class="text-[#00D26A] font-black text-[10px] tracking-[0.15em] uppercase">shimzi.kz design</span>
+                        </div>
+                        <i class="fas fa-camera text-gray-800 text-xs"></i>
+                    </div>
+                    <img src="https://cdn.phototourl.com/uploads/2026-02-07-c58edb87-9ac1-4b6d-a671-e3819239e283.jpg" alt="Portfolio 1" class="block w-full h-auto object-cover">
+                </div>
+
+                <!-- 2. РАБОТА -->
+                <div class="rounded-2xl overflow-hidden border border-gray-800 bg-[#0a0a0a] shadow-2xl">
+                    <div class="bg-[#050505] border-b border-gray-800 px-4 py-2.5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00D26A] animate-pulse"></div>
+                            <span class="text-[#00D26A] font-black text-[10px] tracking-[0.15em] uppercase">shimzi.kz design</span>
+                        </div>
+                        <i class="fas fa-camera text-gray-800 text-xs"></i>
+                    </div>
+                    <img src="https://cdn.phototourl.com/uploads/2026-02-07-cb98e492-327b-464e-ac8a-ec198570dd4a.jpg" alt="Portfolio 2" class="block w-full h-auto object-cover">
+                </div>
+
+                <!-- 3. РАБОТА -->
+                <div class="rounded-2xl overflow-hidden border border-gray-800 bg-[#0a0a0a] shadow-2xl">
+                    <div class="bg-[#050505] border-b border-gray-800 px-4 py-2.5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00D26A] animate-pulse"></div>
+                            <span class="text-[#00D26A] font-black text-[10px] tracking-[0.15em] uppercase">shimzi.kz design</span>
+                        </div>
+                        <i class="fas fa-camera text-gray-800 text-xs"></i>
+                    </div>
+                    <img src="https://cdn.phototourl.com/uploads/2026-02-07-47426855-a77c-4320-909a-adfd83e60c14.jpg" alt="Portfolio 3" class="block w-full h-auto object-cover">
+                </div>
+
+                <!-- 4. РАБОТА -->
+                <div class="rounded-2xl overflow-hidden border border-gray-800 bg-[#0a0a0a] shadow-2xl">
+                    <div class="bg-[#050505] border-b border-gray-800 px-4 py-2.5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00D26A] animate-pulse"></div>
+                            <span class="text-[#00D26A] font-black text-[10px] tracking-[0.15em] uppercase">shimzi.kz design</span>
+                        </div>
+                        <i class="fas fa-camera text-gray-800 text-xs"></i>
+                    </div>
+                    <!-- 4-е ИЗОБРАЖЕНИЕ (Вставлено) -->
+                    <img src="https://cdn.phototourl.com/uploads/2026-02-07-d422b2d2-bcfe-4831-be65-a3c9a00ad3fd.jpg" alt="Portfolio 4" class="block w-full h-auto object-cover">
+                </div>
+
+                <!-- 5. РАБОТА -->
+                <div class="rounded-2xl overflow-hidden border border-gray-800 bg-[#0a0a0a] shadow-2xl">
+                    <div class="bg-[#050505] border-b border-gray-800 px-4 py-2.5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00D26A] animate-pulse"></div>
+                            <span class="text-[#00D26A] font-black text-[10px] tracking-[0.15em] uppercase">shimzi.kz design</span>
+                        </div>
+                        <i class="fas fa-camera text-gray-800 text-xs"></i>
+                    </div>
+                    <!-- 5-е ИЗОБРАЖЕНИЕ (Вставлено) -->
+                    <img src="https://cdn.phototourl.com/uploads/2026-02-07-e7c3552d-718d-4dd9-9a4f-6d93bf3e44cb.jpg" alt="Portfolio 5" class="block w-full h-auto object-cover">
+                </div>
+
+            </div>
+            
+            <!-- ПЛАВАЮЩАЯ КНОПКА ЗАКАЗА (Всегда внизу) -->
+            <div class="fixed bottom-0 left-0 right-0 z-[120] p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+                <!-- ВАЖНО: Замените username на ваш ник -->
+                <a href="https://t.me/SHIMZIIII?text=Здравствуйте!%20Хочу%20заказать%20дизайн" class="block w-full max-w-md mx-auto bg-[#00D26A] text-black text-center py-4 rounded-2xl font-black uppercase shadow-[0_0_30px_rgba(0,210,106,0.6)] tap-effect border-2 border-[#fff]/20 animate-pulse-border">
+                    Заказать Дизайн
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('#050505'); 
+        tg.setBackgroundColor('#050505');
+
+        function openPortfolio() {
+            const modal = document.getElementById('portfolio-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+            tg.BackButton.show();
+            tg.BackButton.onClick(closePortfolio);
+        }
+
+        function closePortfolio() {
+            const modal = document.getElementById('portfolio-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+            tg.BackButton.hide();
+            tg.BackButton.offClick(closePortfolio);
+        }
+    </script>
+</body>
+</html>
